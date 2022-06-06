@@ -6,7 +6,7 @@ namespace Office_1.DataLayer.Services
     public static class RequestService
     {
         private static IList<Status> GetStatuses(bool showCreated, bool showInReview, bool showReviewed,
-            bool showDeclined)
+            bool showDeclined, bool showCompleted = false)
         {
             List<Status> statuses = new();
 
@@ -30,15 +30,20 @@ namespace Office_1.DataLayer.Services
                 statuses.Add(Status.Declined);
             }
 
+            if (showCompleted)
+            {
+                statuses.Add(Status.Completed);
+            }
+
             return statuses;
         }
 
         public static IList<Request> GetSpecialRequests(bool showCreated, bool showInReview, bool showReviewed,
-            bool showDeclined)
+            bool showDeclined, bool showCompleted = false)
         {
             using var context = new ApplicationContext();
 
-            var statuses = GetStatuses(showCreated, showInReview, showReviewed, showDeclined);
+            var statuses = GetStatuses(showCreated, showInReview, showReviewed, showDeclined, showCompleted);
             var query = context.Requests.Where(r => statuses.Contains(r.Status));
 
             return query.Include(r => r.Client).ToList();
@@ -88,6 +93,5 @@ namespace Office_1.DataLayer.Services
 
             return context.Requests.Any(r => r.Id == request.Id);
         }
-        
     }
 }

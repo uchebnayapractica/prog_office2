@@ -22,14 +22,14 @@ public static class RequestPrinter
     private const int TextSizeBigLength = 10;
     private const int BigLength = 700;
 
-    public static void PrintIntoFile(string filePath, Request request, bool changeStatusInfoIntoInReview = false)
+    public static void PrintIntoFile(string filePath, Request request, Status? newStatus = null)
     {
-        using var image = Print(request, changeStatusInfoIntoInReview);
+        using var image = Print(request, newStatus);
 
         image.SaveAsJpeg(filePath);
     }
 
-    public static Image Print(Request request, bool changeStatusIntoInReview = false)
+    public static Image Print(Request request, Status? newStatus = null)
     {
         var (image, qrText) = request.GetQr(Width, Height, Margin);
 
@@ -37,9 +37,9 @@ public static class RequestPrinter
 
         WriteText(image, qrText, TextX, TextY, size, WrapLength);
 
-        if (changeStatusIntoInReview)
+        if (newStatus is not null)
         {
-            request.Status = Status.InReview;
+            request.Status = (Status)newStatus;
             RequestService.UpdateRequest(request);
         }
 

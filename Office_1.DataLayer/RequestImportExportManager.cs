@@ -75,7 +75,7 @@ public static class RequestImportExportManager
         foreach (var request in requests)
         {
             var filePath = path + GenerateName(request);
-            RequestPrinter.PrintIntoFile(filePath, request, true);
+            RequestPrinter.PrintIntoFile(filePath, request, Status.Completed);
             
             filesPaths.Add(filePath);
         }

@@ -15,6 +15,9 @@ public enum Status
     Reviewed,
 
     [Description("Отклонено")]
-    Declined
+    Declined,
+    
+    [Description("Завершено")]
+    Completed
 
 }
