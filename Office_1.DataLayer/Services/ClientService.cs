@@ -1,6 +1,6 @@
-using Office_1.DataLayer.Models;
+using Office_2.DataLayer.Models;
 
-namespace Office_1.DataLayer.Services;
+namespace Office_2.DataLayer.Services;
 
 public static class ClientService
 {
@@ -22,26 +22,26 @@ public static class ClientService
         {
             return clients.First();
         }
-
+        
         // клиента еще нет в базе
         var c = new Client
         {
             Name = name,
             Address = address
         };
-
+        
         InsertClient(c);
 
         return c;
     }
-
+    
     public static IList<Client> GetAllClients()
     {
         using var context = new ApplicationContext();
 
         return context.Clients.ToList();
     }
-
+    
     public static void InsertClient(Client client)
     {
         using var context = new ApplicationContext();

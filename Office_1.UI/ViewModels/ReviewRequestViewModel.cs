@@ -1,10 +1,10 @@
-﻿using Office_1.DataLayer;
-using Office_1.DataLayer.Models;
-using Office_1.UI.Commands;
+﻿using Office_1.UI.Commands;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Office_2.DataLayer;
+using Office_2.DataLayer.Models;
 
 namespace Office_1.UI.ViewModels
 {

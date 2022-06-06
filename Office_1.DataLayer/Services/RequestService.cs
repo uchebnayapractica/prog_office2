@@ -1,15 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Office_1.DataLayer.Models;
+using Office_2.DataLayer.Models;
 
-namespace Office_1.DataLayer.Services
+namespace Office_2.DataLayer.Services
 {
     public static class RequestService
     {
+        public static IList<Request> GetSpecialRequests(bool showCreated, bool showInReview, bool showReviewed,
+            bool showDeclined, bool showCompleted = false)
+        {
+            using var context = new ApplicationContext();
+            
+            var statuses = GetStatuses(showCreated, showInReview, showReviewed, showDeclined, showCompleted);
+            var query = context.Requests.Where(r => statuses.Contains(r.Status));
+
+            return query.Include(r => r.Client).ToList();
+        }
+
         private static IList<Status> GetStatuses(bool showCreated, bool showInReview, bool showReviewed,
             bool showDeclined, bool showCompleted = false)
         {
             List<Status> statuses = new();
-
+            
             if (showCreated)
             {
                 statuses.Add(Status.Created);
@@ -36,17 +47,6 @@ namespace Office_1.DataLayer.Services
             }
 
             return statuses;
-        }
-
-        public static IList<Request> GetSpecialRequests(bool showCreated, bool showInReview, bool showReviewed,
-            bool showDeclined, bool showCompleted = false)
-        {
-            using var context = new ApplicationContext();
-
-            var statuses = GetStatuses(showCreated, showInReview, showReviewed, showDeclined, showCompleted);
-            var query = context.Requests.Where(r => statuses.Contains(r.Status));
-
-            return query.Include(r => r.Client).ToList();
         }
 
         public static IList<Request> GetAllRequests()
@@ -80,9 +80,9 @@ namespace Office_1.DataLayer.Services
             using var context = new ApplicationContext();
 
             request.Client = client;
-
+            
             context.Clients.Attach(client);
-
+            
             context.Requests.Add(request);
             context.SaveChanges();
         }
@@ -93,5 +93,6 @@ namespace Office_1.DataLayer.Services
 
             return context.Requests.Any(r => r.Id == request.Id);
         }
+        
     }
 }

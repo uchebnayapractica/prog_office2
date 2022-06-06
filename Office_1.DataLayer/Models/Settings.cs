@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Office_1.DataLayer.Models;
+namespace Office_2.DataLayer.Models;
 
 public class Settings
 {
