@@ -13,6 +13,7 @@ namespace Office_1.UI.ViewModels
         private bool _showInReview;
         private bool _showReviewed;
         private bool _showDeclined;
+        private bool _showCompleted;
 
         private bool _isReviewButtonAvailable;
 
@@ -25,10 +26,11 @@ namespace Office_1.UI.ViewModels
 
             GetRequestsCommand = new GetRequestsCommand(this);
 
-            ShowNew = false;
+            ShowNew = true;
             ShowInReview = true;
             ShowDeclined = true;
             ShowReviewed = true;
+            ShowCompleted = false;
         }
 
         public ObservableCollection<Request> Requests { get; set; }
@@ -84,6 +86,20 @@ namespace Office_1.UI.ViewModels
                 {
                     _showDeclined = value;
                     OnPropertyChanged(nameof(ShowDeclined));
+                    GetRequestsCommand.Execute(null);
+                }
+            }
+        }
+
+        public bool ShowCompleted
+        {
+            get => _showCompleted;
+            set
+            {
+                if (value != _showCompleted)
+                {
+                    _showCompleted = value;
+                    OnPropertyChanged(nameof(ShowCompleted));
                     GetRequestsCommand.Execute(null);
                 }
             }

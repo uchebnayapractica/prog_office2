@@ -15,7 +15,7 @@ namespace Office_1.UI.Commands
 
         public override void Execute(object parameter)
         {
-            RequestImportExportManager.ExportCreatedRequests();
+            RequestImportExportManager.ExportReviewedAndDeclinedRequests();
 
             MessageBox.Show("Успешно напечатаны рассмотренные и отклонённые заявки!");
         }

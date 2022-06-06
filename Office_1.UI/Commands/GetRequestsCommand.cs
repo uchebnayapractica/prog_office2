@@ -19,7 +19,7 @@ namespace Office_1.UI.Commands
 
             var requests = new List<Request>();
 
-            requests.AddRange(RequestService.GetSpecialRequests(_requestsViewModel.ShowNew, _requestsViewModel.ShowInReview, _requestsViewModel.ShowReviewed, _requestsViewModel.ShowDeclined));
+            requests.AddRange(RequestService.GetSpecialRequests(_requestsViewModel.ShowNew, _requestsViewModel.ShowInReview, _requestsViewModel.ShowReviewed, _requestsViewModel.ShowDeclined, _requestsViewModel.ShowCompleted));
 
             foreach (Request request in requests)
             {
