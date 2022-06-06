@@ -1,6 +1,6 @@
-using Office_1.DataLayer.Models;
+using Office_2.DataLayer.Models;
 
-namespace Office_1.DataLayer.Services;
+namespace Office_2.DataLayer.Services;
 
 public class SettingsService
 {

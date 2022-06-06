@@ -1,10 +1,10 @@
-using Office_1.DataLayer.Models;
-using Office_1.DataLayer.Services;
+using Office_2.DataLayer.Models;
+using Office_2.DataLayer.Services;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using ZXing;
 
-namespace Office_1.DataLayer;
+namespace Office_2.DataLayer;
 
 public static class RequestScanner
 {
@@ -26,7 +26,7 @@ public static class RequestScanner
         {
             throw new NullReferenceException("Result is null");
         }
-
+        
         var text = result.Text;
         if (text is null)
         {
@@ -43,7 +43,7 @@ public static class RequestScanner
 
         foreach (var row in rows)
         {
-            var (key, value) = ParseRow(row);
+            var (key, value) = ParseRow(row); 
 
             values[key] = value;
         }
@@ -54,7 +54,7 @@ public static class RequestScanner
     private static (string key, string value) ParseRow(string row)
     {
         var rowData = row.Split(':', 2);
-
+            
         var key = ParseValue(rowData[0]);
         var value = ParseValue(rowData[1]);
 
@@ -73,11 +73,11 @@ public static class RequestScanner
         var id = int.Parse(dict["Идентификатор"]);
         var client = ClientService.GetOrCreateClientByNameAndAddress(dict["ФИО заявителя"], dict["Адрес"]);
         var status = EnumExtension.GetValueFromDescription<Status>(dict["Статус"]);
-
+        
         var request = new Request
         {
             Id = id,
-
+            
             DirectorName = dict["ФИО руководителя"],
             Subject = dict["Тематика"],
             Content = dict["Содержание"],

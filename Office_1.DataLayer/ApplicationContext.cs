@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Office_1.DataLayer.Models;
+using Office_2.DataLayer.Models;
 
-namespace Office_1.DataLayer;
+namespace Office_2.DataLayer;
 
 public sealed class ApplicationContext : DbContext
 {
-
+    
     public DbSet<Request> Requests { get; set; }
     public DbSet<Client> Clients { get; set; }
     
@@ -19,7 +19,7 @@ public sealed class ApplicationContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("FileName=Application.db");
-        optionsBuilder.UseSqlite("DataSource=D:/Work-3/Other/Practice/Office_1/Application.db");
+        //optionsBuilder.UseSqlite("DataSource=/Users/noliktop/Desktop/test_db/Application.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

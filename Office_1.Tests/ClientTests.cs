@@ -1,9 +1,9 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using Office_1.DataLayer;
-using Office_1.DataLayer.Models;
-using Office_1.DataLayer.Services;
+using Office_2.DataLayer;
+using Office_2.DataLayer.Models;
+using Office_2.DataLayer.Services;
 
 namespace Office_1.Tests
 {

@@ -1,7 +1,7 @@
-﻿using Office_1.DataLayer.Models;
-using Office_1.DataLayer.Services;
-using Office_1.UI.ViewModels;
+﻿using Office_1.UI.ViewModels;
 using System.Windows;
+using Office_2.DataLayer.Models;
+using Office_2.DataLayer.Services;
 
 namespace Office_1.UI.Commands
 {
