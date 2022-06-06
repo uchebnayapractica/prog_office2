@@ -8,11 +8,15 @@ namespace Office_2.DataLayer;
 
 public static class RequestScanner
 {
-
     public static Request LoadFromFile(string filePath)
     {
         using var image = Image.Load(filePath) as Image<Rgb24>;
 
+        if (image is null)
+        {
+            throw new Exception("Image is invalid");
+        }
+        
         return LoadFromImage(image);
     }
 
@@ -26,7 +30,7 @@ public static class RequestScanner
         {
             throw new NullReferenceException("Result is null");
         }
-        
+
         var text = result.Text;
         if (text is null)
         {
@@ -43,7 +47,7 @@ public static class RequestScanner
 
         foreach (var row in rows)
         {
-            var (key, value) = ParseRow(row); 
+            var (key, value) = ParseRow(row);
 
             values[key] = value;
         }
@@ -54,7 +58,7 @@ public static class RequestScanner
     private static (string key, string value) ParseRow(string row)
     {
         var rowData = row.Split(':', 2);
-            
+
         var key = ParseValue(rowData[0]);
         var value = ParseValue(rowData[1]);
 
@@ -71,13 +75,17 @@ public static class RequestScanner
         CheckQrDictionary(dict);
 
         var id = int.Parse(dict["Идентификатор"]);
-        var client = ClientService.GetOrCreateClientByNameAndAddress(dict["ФИО заявителя"], dict["Адрес"]);
-        var status = EnumExtension.GetValueFromDescription<Status>(dict["Статус"]);
         
+        var clientName = dict["ФИО заявителя"];
+        var clientAddress = dict["Адрес"];
+        var client = ClientService.GetOrCreateClientByNameAndAddress(clientName, clientAddress);
+        
+        var status = EnumExtension.GetValueFromDescription<Status>(dict["Статус"]);
+
         var request = new Request
         {
             Id = id,
-            
+
             DirectorName = dict["ФИО руководителя"],
             Subject = dict["Тематика"],
             Content = dict["Содержание"],
@@ -86,7 +94,7 @@ public static class RequestScanner
             Remark = dict["Примечание"]
         };
 
-        if(RequestService.Exists(request))
+        if (RequestService.Exists(request))
         {
             RequestService.UpdateRequest(request, client);
         }
@@ -94,20 +102,23 @@ public static class RequestScanner
         {
             RequestService.InsertRequest(request, client);
         }
-        
+
         return request;
     }
 
     private static void CheckQrDictionary(IDictionary<string, string> dict)
     {
-        string[] requiredParams = { "Идентификатор", "ФИО заявителя", "ФИО руководителя", "Адрес", "Тематика", "Содержание", "Резолюция", "Статус", "Примечание" };
+        string[] requiredParams =
+        {
+            "Идентификатор", "ФИО заявителя", "ФИО руководителя", "Адрес", "Тематика", "Содержание", "Резолюция",
+            "Статус", "Примечание"
+        };
         foreach (var param in requiredParams)
         {
             if (!dict.ContainsKey(param))
             {
-                throw new ArgumentException($"Отсутствует параметр \"{param}\" в словаре");
+                throw new ArgumentException($"No \"{param}\" parameter in dictionary");
             }
         }
     }
-
 }

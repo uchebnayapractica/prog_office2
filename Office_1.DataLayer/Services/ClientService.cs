@@ -9,14 +9,19 @@ public static class ClientService
     {
         using var context = new ApplicationContext();
 
-        return context.Clients.Where(c => c.Name.StartsWith(prefixOfName)).ToList();
+        return context.Clients.Where(c => 
+            c.Name.StartsWith(prefixOfName) // проверяем, что имя начинается с указанного префикса
+            ).ToList();
     }
 
     public static Client GetOrCreateClientByNameAndAddress(string name, string address)
     {
         using var context = new ApplicationContext();
 
-        var clients = context.Clients.Where(c => c.Name.Equals(name) && c.Address.Equals(address));
+        var clients = context.Clients.Where(c => 
+            c.Name.Equals(name) && // проверяем что это искомое имя 
+            c.Address.Equals(address)  // проверяем что это искомый адрес
+            );
 
         if (clients.Any()) // клиент уже есть в базе
         {

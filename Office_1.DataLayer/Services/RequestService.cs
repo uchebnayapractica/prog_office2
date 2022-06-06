@@ -11,7 +11,9 @@ namespace Office_2.DataLayer.Services
             using var context = new ApplicationContext();
             
             var statuses = GetStatuses(showCreated, showInReview, showReviewed, showDeclined, showCompleted);
-            var query = context.Requests.Where(r => statuses.Contains(r.Status));
+            var query = context.Requests.Where(r => 
+                statuses.Contains(r.Status) // обращение имеет искомый статус 
+                );
 
             return query.Include(r => r.Client).ToList();
         }
@@ -53,7 +55,9 @@ namespace Office_2.DataLayer.Services
         {
             using var context = new ApplicationContext();
 
-            return context.Requests.Include(r => r.Client).ToList();
+            return context.Requests
+                .Include(r => r.Client) // чтобы клиентов тоже вернуло
+                .ToList();
         }
 
         public static void UpdateRequest(Request request)
@@ -69,7 +73,7 @@ namespace Office_2.DataLayer.Services
             using var context = new ApplicationContext();
 
             request.Client = client;
-            context.Clients.Attach(client);
+            context.Clients.Attach(client); // чтобы клиента тоже загрузило, а иначе ошибка лезет
 
             context.Requests.Update(request);
             context.SaveChanges();
@@ -81,7 +85,7 @@ namespace Office_2.DataLayer.Services
 
             request.Client = client;
             
-            context.Clients.Attach(client);
+            context.Clients.Attach(client); // чтобы клиента тоже загрузило, а иначе ошибка лезет
             
             context.Requests.Add(request);
             context.SaveChanges();
@@ -91,7 +95,9 @@ namespace Office_2.DataLayer.Services
         {
             using var context = new ApplicationContext();
 
-            return context.Requests.Any(r => r.Id == request.Id);
+            return context.Requests.Any(r => 
+                r.Id == request.Id // проверяем что это искомый id 
+                );
         }
         
     }
