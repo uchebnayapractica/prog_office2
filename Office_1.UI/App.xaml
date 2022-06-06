@@ -1,0 +1,30 @@
+﻿<Application x:Class="Office_1.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Office_1.UI"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Компоненты библиотеки-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+ 
+            <!--PRIMARY-->
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#349fda"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#349fda"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#349fda"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#349fda"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#349fda"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#349fda"/>
+ 
+            <!--ACCENT-->
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#627af0"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#627af0"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
