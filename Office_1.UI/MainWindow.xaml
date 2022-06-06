@@ -150,7 +150,7 @@
                 <Label Name ="ClientComboBox" Content="{Binding ReviewRequest.ClientName}" Grid.Column="2" Grid.Row="1" Margin="5, 5, 5, 5"/>
 
                 <Label Name ="ClientAdressLabel" Content="Адрес клиента:" Grid.Column="1" Grid.Row="2" Margin="5, 5, 5, 5" FontSize="15"/>
-                <Label Name ="ClientAdressTextBox" Content="{Binding ReviewRequest.ClientAddress}" Grid.Column="2" Grid.Row="2" Margin="5, 5, 5, 5" />
+                <TextBlock Name ="ClientAdressTextBox" TextWrapping="Wrap" Text="{Binding ReviewRequest.ClientAddress}" Grid.Column="2" Grid.Row="2" Margin="5, 5, 5, 5" />
 
                 <Label Name ="DirectorLabel" Content="Руководитель:" Grid.Column="1" Grid.Row="3" Margin="5, 5, 5, 5" FontSize="15"/>
                 <Label Name ="DirectorTextBox" Content="{Binding ReviewRequest.DirectorName}" Grid.Column="2" Grid.Row="3" Margin="5, 5, 5, 5"/>
@@ -159,14 +159,14 @@
                 <Label Name ="SubjectTextBox" Content="{Binding ReviewRequest.Subject}" Grid.Column="2" Grid.Row="4" Margin="5, 5, 5, 5"/>
 
                 <Label Name ="ContentLabel" Content="Содержание:" Grid.Column="1" Grid.Row="5" Margin="5, 5, 5, 5" FontSize="15"/>
-                <Label Name ="ContentTextBox" Content="{Binding ReviewRequest.Content}" Grid.Column="2" Grid.Row="5" Margin="5, 5, 5, 5"/>
+                <TextBlock Name ="ContentTextBox" TextWrapping="Wrap" Text="{Binding ReviewRequest.Content}" Grid.Column="2" Grid.Row="5" Margin="5, 5, 5, 5"/>
 
 
                 <Label Name ="ResolutionLabel" Content="Резолюция:" Grid.Column="1" Grid.Row="6" Margin="5, 5, 5, 5" FontSize="15"/>
-                <TextBox Name ="ResolutionTextBox" Text="{Binding ReviewRequest.Resolution}" Grid.Column="2" Grid.Row="6" Margin="5, 5, 5, 5"/>
+                <TextBox Name ="ResolutionTextBox" Text="{Binding ReviewRequest.Resolution}" Grid.Column="2" Grid.Row="6" Margin="5, 5, 5, 5" TextWrapping="Wrap"/>
 
                 <Label Name ="RemarkLabel" Content="Ремарка:" Grid.Column="1" Grid.Row="7" Margin="5, 5, 5, 5" FontSize="15"/>
-                <TextBox Name ="RemarkTextBox" Text="{Binding ReviewRequest.Remark}" Grid.Column="2" Grid.Row="7" Margin="5, 5, 5, 5"/>
+                <TextBox Name ="RemarkTextBox" Text="{Binding ReviewRequest.Remark}" Grid.Column="2" Grid.Row="7" Margin="5, 5, 5, 5" TextWrapping="Wrap"/>
 
                 <Label Name ="StatusLabel" Content="Статус:" Grid.Column="1" Grid.Row="8" Margin="5, 5, 5, 5" FontSize="15"/>
                 <ListBox Name ="StatusTextBox" ItemsSource="{Binding ReviewRequest.Statuses}" SelectedItem="{Binding ReviewRequest.StatusDefinition}" Grid.Column="2" Grid.Row="8" Margin="5, 5, 5, 5"/>
