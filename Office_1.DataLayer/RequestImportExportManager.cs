@@ -11,15 +11,7 @@ public static class RequestImportExportManager
         var s = SettingsService.GetSettings();
 
         var path = s.ImportPath;
-        if (path == "")
-        {
-            throw new Exception("Не задан import path");
-        }
-
-        if (!Directory.Exists(path))
-        {
-            throw new Exception("Указанный import path не существует");
-        }
+        CheckPath(path, "import path");
 
         return ImportRequestsFrom(path, deleteFiles);
     }
@@ -30,7 +22,7 @@ public static class RequestImportExportManager
         
         foreach (var file in Directory.GetFiles(path))
         {
-            var request = RequestScanner.LoadFromFile(file);
+            var request = RequestScanner.LoadFromFile(file); 
             
             requests.Add(request);
 
@@ -62,17 +54,9 @@ public static class RequestImportExportManager
         var s = SettingsService.GetSettings();
 
         var path = s.ExportPath;
-        if (path == "")
-        {
-            throw new Exception("Не задан export path");
-        }
-
-        if (!Directory.Exists(path))
-        {
-            throw new Exception("Указанный export path не существует");
-        }
+        CheckPath(path, "export path");
         
-        return ExportRequestsTo(path, requests);
+        return ExportRequestsTo(path, requests, newStatus);
     }
     
     private static IList<string> ExportRequestsTo(string path, IList<Request> requests, Status? newStatus = null)
@@ -93,6 +77,19 @@ public static class RequestImportExportManager
     private static string GenerateName(Request request)
     {
         return "обращение_" + request.Client.Name.Replace(' ', '_') + "_N" + request.Id + ".jpg";
+    }
+
+    private static void CheckPath(string path, string namePath)
+    {
+        if (path == "")
+        {
+            throw new Exception($"Не задан {namePath}");
+        }
+
+        if (!Directory.Exists(path))
+        {
+            throw new Exception($"Указанный {namePath} не существует");
+        }
     }
     
 }

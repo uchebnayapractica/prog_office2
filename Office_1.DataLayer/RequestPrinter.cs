@@ -22,7 +22,7 @@ public static class RequestPrinter
     private const int TextY = 10;
     private const int WrapLength = Width - TextX;
 
-    private const int TextSizeBigLength = 10;
+    private const int TextSizeForBigLength = 10;
     private const int BigLength = 700;
 
     public static void PrintIntoFile(string filePath, Request request, Status? newStatus = Status.InReview)
@@ -49,37 +49,43 @@ public static class RequestPrinter
         return image;
     }
 
-    private static int GetTextSize(int qrCodeLength)
+    private static int GetTextSize(int qrTextLength)
     {
-        return qrCodeLength >= BigLength ? TextSizeBigLength : TextSize;
+        var isTextBig = qrTextLength >= BigLength;
+
+        if (isTextBig)
+        {
+            return TextSizeForBigLength;
+        }
+        
+        return TextSize;
     }
 
     private static void WriteText(Image image, string text, int x, int y, int size, int wrapLength)
     {
-        var font = SystemFonts.CreateFont("Arial", size, FontStyle.Regular);
+        var font = SystemFonts.CreateFont("Arial", size, FontStyle.Regular); // шрифт
 
-        TextOptions options = new(font)
+        TextOptions options = new(font) // настройки текста
         {
-            Origin = new PointF(x, y),
-            //TabWidth = 8, 
+            Origin = new PointF(x, y), 
             WrappingLength = wrapLength, 
             WordBreaking = WordBreaking.BreakAll,
             HorizontalAlignment = HorizontalAlignment.Left
         };
         
-        image.Mutate(img=> img.DrawText(options, text, Color.Black));
+        image.Mutate(img=> img.DrawText(options, text, Color.Black)); // непосредственно рисование текста
     }
     
     public static (Image qrImage, string qrString) GetQr(Request request, int width, int height, int margin)
     {
-        var qrString = ToStringForQr(request);
+        var qrString = GetTextForQr(request);
 
         var options = new EncodingOptions
         {
             Height = height, Width = width, Margin = margin,
         };
         
-        options.Hints.Add(EncodeHintType.CHARACTER_SET, "utf-8");
+        options.Hints.Add(EncodeHintType.CHARACTER_SET, "utf-8"); // решение бага с возникающими "??????" 
         
         var barcodeWriter = new ZXing.ImageSharp.BarcodeWriter<Rgb24> { 
             Format = BarcodeFormat.QR_CODE, 
@@ -91,9 +97,9 @@ public static class RequestPrinter
         return (image, qrString);
     }
 
-    private static string ToStringForQr(Request request)
+    private static string GetTextForQr(Request request)
     {
-        var dict = ToDictionaryForQr(request);
+        var dict = GetDictionaryForQr(request);
         var values = dict.Select(p => PrepareRow(p.Key, p.Value));
 
         return string.Join(" ", values);
@@ -109,7 +115,7 @@ public static class RequestPrinter
         return value.Replace(' ', '_');
     }
 
-    private static IDictionary<string, string> ToDictionaryForQr(Request request)
+    private static IDictionary<string, string> GetDictionaryForQr(Request request)
     {
         return new Dictionary<string, string>
         {
