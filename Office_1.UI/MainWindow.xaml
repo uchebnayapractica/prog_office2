@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Office_1.UI" xmlns:viewmodels="clr-namespace:Office_1.UI.ViewModels" 
         mc:Ignorable="d"
-        Title="Office_2" Height="600" Width="1000"
+        Title="Office_2" Height="750" Width="1200" WindowStartupLocation="CenterScreen"
         >
 
     <Grid>
@@ -40,7 +40,7 @@
                 </Grid.RowDefinitions>
 
 
-                <Button x:Name="ReviewRequestGrid" Command="{Binding ChangeVisibleGridCommand}" CommandParameter="{Binding ReviewRequest}" IsEnabled="{Binding AllRequests.IsReviewButtonAvailable}" Content="Рассмотреть заявку" Grid.Column="1" Grid.Row="1" Margin="0, 30, 0, 0" FontSize="14"/>
+                <Button x:Name="ReviewRequestGrid" Command="{Binding ChangeVisibleGridCommand}" CommandParameter="{Binding ReviewRequest}" IsEnabled="{Binding AllRequests.IsReviewButtonAvailable}" Content="Рассмотреть обращение" Grid.Column="1" Grid.Row="1" Margin="0, 30, 0, 0" FontSize="14"/>
 
                 <Label Name="ShowLabel" Content="Показать:" Grid.Column="1" Grid.Row="2" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" FontSize="14"/>
 
@@ -52,9 +52,9 @@
                     <CheckBox Content="Завершённые" Margin="0, 5, 0, 0" IsChecked="{Binding AllRequests.ShowCompleted}" FontSize="14"/>
                 </StackPanel>
 
-                <Button x:Name="PrintButton" Command="{Binding PrintNewRequestsToFilesCommand}" Content="Напечатать заявки" Grid.Column="1" Grid.Row="4" Margin="0, 30, 0, 0" FontSize="14"/>
+                <Button x:Name="PrintButton" Command="{Binding PrintNewRequestsToFilesCommand}" Content="Напечатать обращения" Grid.Column="1" Grid.Row="4" Margin="0, 30, 0, 0" FontSize="14"/>
 
-                <Button x:Name="TakeFileButton" Command="{Binding GetNewRequestsFromFilesCommand}" Content="Считать заявки" Grid.Column="1" Grid.Row="5" Margin="0, 30, 0, 0" FontSize="14"/>
+                <Button x:Name="TakeFileButton" Command="{Binding GetNewRequestsFromFilesCommand}" Content="Считать обращения" Grid.Column="1" Grid.Row="5" Margin="0, 30, 0, 0" FontSize="14"/>
 
             </Grid>
 
@@ -116,7 +116,7 @@
 
                 </Grid.RowDefinitions>
 
-                <Button x:Name="RewiewRequest" Command="{Binding ReviewRequestCommand}" CommandParameter="{Binding AllRequests}" Content="Сохранить заявку" Grid.Column="1" Grid.Row="2" Margin="0, 30, 0, 0" FontSize="14"/>
+                <Button x:Name="RewiewRequest" Command="{Binding ReviewRequestCommand}" CommandParameter="{Binding AllRequests}" Content="Сохранить обращение" Grid.Column="1" Grid.Row="2" Margin="0, 30, 0, 0" FontSize="14"/>
                 <Button x:Name="ToMain" Command="{Binding ChangeVisibleGridCommand}" CommandParameter="{Binding AllRequests}" Content="Назад" Grid.Column="1" Grid.Row="4" Margin="0, 30, 0, 0" FontSize="14"/>
 
 
